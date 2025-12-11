@@ -12,13 +12,14 @@ User = get_user_model()
 
 
 @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def list_users(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def list_profiles(request):
     profiles = UserProfile.objects.all()
     serializer = UserProfileSerializer(profiles, many=True)
@@ -26,6 +27,7 @@ def list_profiles(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def list_contacts(request):
     contacts = EmergencyContact.objects.all()
     serializer = EmergencyContactSerializer(contacts, many=True)
