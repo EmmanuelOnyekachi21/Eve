@@ -1,0 +1,54 @@
+.env
+.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+venv/
+.venv/
+.env
+
+# IDEs and Editors
+.vscode/ # VS Code
+.sublime-workspace
+.sublime-project
+*.swp # Vim swap files
+*~ # Emacs backup files
+
+# OS-specific
+*.log
+*.tmp
+*.bak
+*~
+
+# Django / Flask / other web frameworks
+db.sqlite3
+media/
+static/
+**/migrations/* 
+# Common for Django, Flask-Migrate, etc.
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# Test results
+/coverage/
+.nyc_output/
+
+# Compiled output
+dist/
+build/
+out/
+
+# Dependency directories
+vendor/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
