@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User, UserProfile, EmergencyContact
+from django.contrib.gis.admin import GISModelAdmin
 
 
 class EmergencyContactInline(admin.TabularInline):
@@ -33,7 +34,7 @@ class UserAdmin(BaseUserAdmin):
 
 
 @admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
+class UserProfileAdmin(GISModelAdmin):
     list_display = ('user', 'phone', 'created_at')
     search_fields = ('user__email', 'user__first_name', 'user__last_name', 'phone')
     readonly_fields = ('created_at',)
