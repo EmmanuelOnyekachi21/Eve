@@ -18,12 +18,12 @@ class CrimeZone(models.Model):
 class LocationTracking(models.Model):
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='locations')
     location = gis_models.PointField(geography=True)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     speed = models.FloatField(null=True, blank=True)
     battery_level = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.user_profile.user.username} @ {self.timestamp.isoformat()}"
+        return f"{self.user_profile.user.email} @ {self.timestamp.isoformat()}"
 
 class Alert(models.Model):
     ALERT_LEVELS = [('Warning','Warning'), ('Emergency','Emergency')]
