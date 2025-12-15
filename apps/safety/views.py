@@ -12,6 +12,11 @@ from django.contrib.gis.geos import Point
 from django.contrib.gis.measure import D
 from django.contrib.gis.db.models.functions import Distance
 from datetime import datetime
+from apps.anomaly_detection import (
+    TimePatternDetector,
+    RouteDeviationDetector,
+    StoppedMovementDetector
+)
 
 
 @api_view(['POST'])
@@ -40,7 +45,6 @@ def get_crimezones(request):
     crimezones = CrimeZone.objects.all()
     serializer = CrimeZoneSerializer(crimezones, many=True)
     return Response(serializer.data)
-
 
 @api_view(['GET'])
 def get_crimezones_nearby(request):
@@ -163,15 +167,34 @@ def calculate_risk(request):
         else:
             speed_risk = 0   # Normal speed, no risk
         
+        # Calculate Anomaly risk
+        user_profile = UserProfile.objects.first()
+
+        anomaly_risk = 0
+
+        anomalies_detected = []
+
+        if user_profile:
+            # Run detectors
+            stopped = StoppedMovementDetector.detect(user_profile)
+            route = RouteDeviationDetector.detect(user_profile)
+            time = TimePatternDetector.detect(user_profile)
+
+            # Collect anomalies
+            for detector_result in [stopped, route, time]:
+                if detector_result['is_anomaly']:
+                    anomalies_detected.append(detector_result['reason'])
+                    anomaly_risk += detector_result['risk_increase']
+        
         # Combine and respond
         # Total risk (out of 80 for now, will be 100 when we add prediction)
-        total_risk = zone_risk + time_risk + speed_risk
+        total_risk = zone_risk + time_risk + speed_risk + anomaly_risk
 
         # Scale to 100 (temporary until we add prediction)
-        risk_score = min(100, total_risk * 1.25)
+        # risk_score = min(100, total_risk * 1.25)
 
         # Determine alert threshold
-        should_alert = risk_score > 70
+        should_alert = total_risk > 70
 
         # Build reason string
         reasons = []
@@ -184,10 +207,13 @@ def calculate_risk(request):
 
         reason = " + ".join(reasons) if reasons else "Low risk area"
 
+        if anomalies_detected:
+            reason += " | ANOMALIES: " + "; ".join(anomalies_detected)
+
         # Response
         return Response({
-            "risk_score": round(risk_score, 1),
-            "risk_level": "High" if risk_score > 70 else "Medium" if risk_score > 40 else "Low",
+            "risk_score": round(min(100, total_risk), 1),
+            "risk_level": "High" if total_risk > 70 else "Medium" if total_risk > 40 else "Low",
             "nearest_danger_zone": {
                 "name": nearest_zone.name,
                 "distance_meters": round(distance_m, 1),
@@ -199,6 +225,12 @@ def calculate_risk(request):
                 "speed_risk": speed_risk
             },
             "reason": reason,
+            "anomalies": {
+                "detected": len(anomalies_detected) > 0,
+                "count": len(anomalies_detected),
+                "details": anomalies_detected,
+                "risk_added": anomaly_risk
+            },
             "should_alert": should_alert
         }, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
