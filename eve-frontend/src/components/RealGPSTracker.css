@@ -1,0 +1,124 @@
+.real-gps-tracker {
+  border: 2px solid #10b981;
+}
+
+.real-gps-tracker .card-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.location-display {
+  background-color: #f0fdf4;
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #10b981;
+}
+
+.location-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+.location-item .label {
+  font-weight: 600;
+  color: #064e3b;
+}
+
+.location-item .value {
+  color: #059669;
+}
+
+.gps-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.stat-item i {
+  color: #10b981;
+}
+
+.stat-label {
+  font-weight: 500;
+  color: #475569;
+  margin-right: 0.5rem;
+}
+
+.stat-value {
+  margin-left: auto;
+  font-weight: 700;
+  color: #1e293b;
+  font-family: 'Courier New', monospace;
+}
+
+.tracking-status {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f0fdf4;
+  border-radius: 8px;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.active {
+  background-color: #10b981;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.status-text {
+  font-weight: 600;
+  color: #059669;
+}
+
+.gps-tips {
+  padding: 1rem;
+  background-color: #eff6ff;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.gps-tips strong {
+  color: #1e40af;
+}
+
+.gps-tips ul {
+  padding-left: 1.5rem;
+  color: #475569;
+}
+
+.gps-tips li {
+  margin-bottom: 0.25rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}

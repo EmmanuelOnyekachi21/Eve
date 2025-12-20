@@ -1,0 +1,73 @@
+.gps-simulator {
+  border: 2px solid #e0e7ff;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.gps-simulator .card-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.75rem 1rem;
+}
+
+.gps-simulator .card-header:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+.gps-simulator.collapsed .card-body {
+  display: none;
+}
+
+.speed-display {
+  display: flex;
+  align-items: baseline;
+  padding: 0.75rem;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.speed-value {
+  font-size: 2rem;
+  color: #2563eb;
+  margin-right: 0.5rem;
+}
+
+.speed-unit {
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.gps-simulator .btn {
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.gps-simulator .btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.gps-simulator .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gps-simulator .form-control:read-only {
+  background-color: #f8fafc;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+}
+
+.gps-simulator .input-group-text {
+  font-weight: 600;
+  background-color: #e0e7ff;
+  color: #1e40af;
+  border-color: #c7d2fe;
+}
+
+.spinner-grow-sm {
+  width: 0.75rem;
+  height: 0.75rem;
+}

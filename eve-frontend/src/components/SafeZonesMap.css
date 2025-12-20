@@ -1,0 +1,103 @@
+.safe-zones-map-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.map-placeholder {
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #d1d5db;
+}
+
+.placeholder-icon {
+  font-size: 4rem;
+  margin-bottom: 15px;
+  opacity: 0.5;
+}
+
+.map-placeholder p {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+.zones-map-legend {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.zones-map {
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.legend-line {
+  width: 30px;
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 2px;
+  position: relative;
+}
+
+.legend-line::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 0%, transparent 50%, #3b82f6 50%, #3b82f6 100%);
+  background-size: 10px 100%;
+}
+
+.zones-map-info {
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.custom-zone-marker {
+  background: transparent;
+  border: none;
+}
+
+.rank-badge {
+  background: transparent;
+  border: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .zones-map {
+    height: 400px !important;
+  }
+
+  .zones-map-legend {
+    top: 5px;
+    right: 5px;
+    padding: 8px;
+    font-size: 0.75rem;
+  }
+
+  .zones-map-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .map-placeholder {
+    height: 350px;
+  }
+}

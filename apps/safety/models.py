@@ -28,7 +28,7 @@ class LocationTracking(models.Model):
 class Alert(models.Model):
     ALERT_LEVELS = [('Warning','Warning'), ('Emergency','Emergency')]
     ALERT_SOURCES = [('Location','Location'), ('Voice','Voice'), ('Prediction','Prediction'), ('Manual','Manual'), ('Combined','Combined')]
-    STATUS_CHOICES = [('Active','Active'), ('Resolved','Resolved'), ('False Alarm','False Alarm')]
+    STATUS_CHOICES = [('Active','Active'), ('Resolved','Resolved'), ('False Alarm','False Alarm'), ('Pending Response','Pending Response')]
 
     user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='alerts')
     alert_level = models.CharField(max_length=20, choices=ALERT_LEVELS)
@@ -39,6 +39,13 @@ class Alert(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active')
     triggered_at = models.DateTimeField(auto_now_add=True)
     resolved_at = models.DateTimeField(null=True, blank=True)
+    
+    # Admin dashboard fields
+    logged_to_admin = models.BooleanField(default=False, help_text="Alert logged to admin dashboard")
+    admin_notified_at = models.DateTimeField(null=True, blank=True, help_text="When admin was notified")
+    requires_admin_attention = models.BooleanField(default=False, help_text="Needs immediate admin attention")
+    user_response_deadline = models.DateTimeField(null=True, blank=True, help_text="Deadline for user response")
+    admin_notes = models.TextField(blank=True, null=True, help_text="Admin notes on this alert")
 
     def __str__(self):
         return f"{self.alert_level} - {self.user_profile.user.username}"

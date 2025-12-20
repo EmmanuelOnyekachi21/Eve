@@ -105,3 +105,40 @@ class RiskCalculatorSerializer(serializers.Serializer):
             raise serializers.ValidationError("Invalid speed")
         return value
 
+
+
+class UserConfirmationSerializer(serializers.Serializer):
+    """
+    User responds to safety check
+    """
+    is_safe = serializers.BooleanField(required=True)
+    context = serializers.CharField(max_length=200, required=False, allow_blank=True)
+    alert_id = serializers.IntegerField(required=False, allow_null=True)
+    latitude = serializers.FloatField(required=False, allow_null=True)
+    longitude = serializers.FloatField(required=False, allow_null=True)
+    
+    def validate_latitude(self, value):
+        if value and (value < -90 or value > 90):
+            raise serializers.ValidationError("Invalid latitude")
+        return value
+    
+    def validate_longitude(self, value):
+        if value and (value < -180 or value > 180):
+            raise serializers.ValidationError("Invalid longitude")
+        return value
+
+
+class AlertHistorySerializer(serializers.Serializer):
+    """
+    Serializer for alert history
+    """
+    id = serializers.IntegerField()
+    alert_level = serializers.CharField()
+    alert_source = serializers.CharField()
+    risk_score = serializers.FloatField()
+    reason = serializers.CharField()
+    status = serializers.CharField()
+    triggered_at = serializers.DateTimeField()
+    resolved_at = serializers.DateTimeField(allow_null=True)
+    latitude = serializers.FloatField(allow_null=True)
+    longitude = serializers.FloatField(allow_null=True)

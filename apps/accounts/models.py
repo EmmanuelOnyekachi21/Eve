@@ -76,6 +76,8 @@ class UserProfile(models.Model):
                                      help_text="User's home address coordinates")
     work_location = gis_models.PointField(geography=True, null=True, blank=True,
                                      help_text="User's work/school coordinates")
+    profile_completed = models.BooleanField(default=False, 
+                                           help_text="Whether user has completed onboarding")
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

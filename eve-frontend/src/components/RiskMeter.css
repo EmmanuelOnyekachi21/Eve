@@ -1,0 +1,28 @@
+.risk-meter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.progress-circle {
+  transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease;
+}
+
+.risk-meter svg {
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+.risk-value {
+  transition: fill 0.5s ease;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

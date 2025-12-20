@@ -1,0 +1,286 @@
+.dashboard-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.dashboard-title {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+/* 3-Column Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.dashboard-left,
+.dashboard-middle,
+.dashboard-right {
+  min-height: 500px;
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-title {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Risk Badge */
+.risk-badge {
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.risk-low {
+  background-color: #10b981;
+  color: white;
+}
+
+.risk-medium {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.risk-high {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* Status Indicator */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-initializing {
+  background-color: #94a3b8;
+}
+
+.status-safe {
+  background-color: #10b981;
+}
+
+.status-warning {
+  background-color: #f59e0b;
+}
+
+.status-emergency {
+  background-color: #ef4444;
+}
+
+.status-text {
+  font-weight: 500;
+  color: #475569;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Map Card */
+.map-card {
+  height: 100%;
+  min-height: 600px;
+}
+
+.map-header {
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  color: white;
+}
+
+.map-header .card-title {
+  color: white;
+}
+
+/* Fade-in Animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth Transitions */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: 30% 70%;
+  }
+  
+  .dashboard-right {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 0 0.5rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .dashboard-left,
+  .dashboard-middle,
+  .dashboard-right {
+    min-height: auto;
+  }
+  
+  .dashboard-right {
+    grid-template-columns: 1fr;
+  }
+  
+  .map-card {
+    min-height: 400px;
+  }
+
+  .dashboard-title {
+    font-size: 1.75rem;
+  }
+
+  /* Ensure touch targets are at least 44px */
+  .nav-link {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  button {
+    min-height: 44px;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 375px) {
+  .dashboard-container {
+    padding: 0 0.25rem;
+  }
+
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    border-radius: 8px;
+  }
+
+  .card-body {
+    padding: 1rem;
+  }
+
+  .risk-badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+/* Floating Action Button for Incident Reporting */
+.fab-report-incident {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fab-report-incident:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 30px rgba(239, 68, 68, 0.6);
+}
+
+.fab-report-incident:active {
+  transform: scale(0.95);
+}
+
+.fab-report-incident i {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .fab-report-incident {
+    bottom: 1rem;
+    right: 1rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+}

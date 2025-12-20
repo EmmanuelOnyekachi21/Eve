@@ -1,24 +1,32 @@
+# ============================================
+# PREDICTION MODELS (3)
+# ============================================
 from django.db import models
-from django.utils import timezone
-from apps.accounts.models import UserProfile
+from django.contrib.gis.geos import Point
 from django.contrib.gis.db import models as gis_models
-
+from apps.accounts.models import UserProfile
 
 class IncidentReport(models.Model):
+    """
+    Historical crime data for LSTM training
+    """
     INCIDENT_TYPES = [
-        ('Robbery','Robbery'), ('Assault','Assault'),
-        ('Kidnapping','Kidnapping'), ('Theft','Theft'),
-        ('Harassment','Harassment'), ('Vandalism','Vandalism'),
+        ('Robbery', 'Robbery'),
+        ('Assault', 'Assault'),
+        ('Kidnapping', 'Kidnapping'),
+        ('Theft', 'Theft'),
+        ('Harassment', 'Harassment'),
+        ('Vandalism', 'Vandalism'),
     ]
+    
     SOURCES = [
         ('User Alert', 'User-Generated Alert'),
         ('News', 'News Report'),
         ('Police', 'Police Report'),
         ('Synthetic', 'Synthetic/Generated'),
     ]
-    incident_type = models.CharField(
-        max_length=50, choices=INCIDENT_TYPES
-    )
+    
+    incident_type = models.CharField(max_length=50, choices=INCIDENT_TYPES)
     location = gis_models.PointField(geography=True)
     occurred_at = models.DateTimeField(help_text="When incident occurred")
     severity = models.IntegerField(help_text="1-10 severity scale")
@@ -28,7 +36,7 @@ class IncidentReport(models.Model):
     verified = models.BooleanField(default=False, help_text="Is this real or synthetic data?")
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return f"{self.incident_type} - {self.occurred_at.date()}"
     
@@ -43,7 +51,7 @@ class IncidentReport(models.Model):
 
 class ThreatPrediction(models.Model):
     """
-    ML model predictions for future threats.
+    ML model predictions for future threats
     """
     location = gis_models.PointField(geography=True, help_text="Where threat is predicted")
     prediction_for_datetime = models.DateTimeField(help_text="When threat is predicted to occur")
@@ -86,5 +94,3 @@ class RouteAnalysis(models.Model):
         ordering = ['risk_score']
         verbose_name = "Route Analysis"
         verbose_name_plural = "Route Analyses"
-
-

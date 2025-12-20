@@ -14,6 +14,7 @@ def login(request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except TokenError as e:
         return Response({'detail': e.args[0]}, status=status.HTTP_401_UNAUTHORIZED)
     except InvalidToken as e:
